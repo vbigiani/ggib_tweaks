@@ -1,0 +1,48 @@
+IF
+  Gender(Player1,MALE)
+  Global("TRIANGLEMOD","GLOBAL",4)
+  Global("OCTAGONMOD","GLOBAL",0)
+  InParty("NALIA")
+  !Dead("NALIA")
+  InMyArea("NALIA")
+  InParty("ANOMEN")
+  !Dead("ANOMEN")
+  InMyArea("ANOMEN")
+  InParty("MINSC")
+  !Dead("MINSC")
+  InMyArea("MINSC")
+  InParty("VALYGAR")
+  !Dead("VALYGAR")
+  InMyArea("VALYGAR")
+  InParty("HAERDALIS")
+  !Dead("HAERDALIS")
+  InMyArea("HAERDALIS")
+  InParty("EDWIN")
+  !Dead("EDWIN")
+  InMyArea("EDWIN")
+  InParty("KORGAN")
+  !Dead("KORGAN")
+  InMyArea("KORGAN")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("OCTAGONMODTIMER","GLOBAL",TWO_DAYS)
+    SetGlobal("OCTAGONMOD","GLOBAL",1)
+END
+
+IF
+  Gender(Player1,MALE)
+  GlobalLT("OCTAGONMOD","GLOBAL",3)
+  OR(2)
+    Global("OCTAGONMOD","GLOBAL",2)
+    GlobalTimerExpired("OCTAGONMODTIMER","GLOBAL")
+  InParty("NALIA")
+  !Dead("NALIA")
+  InMyArea("NALIA")
+  InParty("IMOEN2")
+  !Dead("IMOEN2")
+  InMyArea("IMOEN2")
+THEN
+  RESPONSE #100
+    SetGlobal("OCTAGONMOD","GLOBAL",3)
+    StartDialogueNoSet(Myself)
+END

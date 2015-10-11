@@ -1,0 +1,4 @@
+AT_NOW ~VIEW ggib_tweaks/natlia/READMENOWNATLIA.txt~
+
+COMPILE ~ggib_tweaks/natlia/natlia.d~
+EXTEND_TOP ~nalia.bcs~ ~ggib_tweaks/natlia/natlia.baf~

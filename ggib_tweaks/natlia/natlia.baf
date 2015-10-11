@@ -1,0 +1,11 @@
+IF
+  InParty(Myself)
+  AreaCheck("AR0406")
+  Dead("Torgal")
+  G("TFJnatlia",0)
+THEN
+    RESPONSE #100
+             SG("TFJnatlia",1)
+             Dialogue(Player1)
+END
+

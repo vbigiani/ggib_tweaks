@@ -1,0 +1,10 @@
+COPY_EXISTING ~amul02.itm~ ~override/ggib01.itm~
+  SAY NAME1 ~Anal Beads~
+  SAY NAME2 ~Anal Beads~
+
+EXTEND_BOTTOM ~ar0602.bcs~ ~ggib_tweaks/orgies/ggib01.baf~
+
+COMPILE ~ggib_tweaks/orgies/ggib01.d~
+
+COPY ~ggib_tweaks/orgies/ggib01.spl~ ~override~
+  SAY NAME1 ~You cum so hard you blow a hole in your pants~

@@ -1,0 +1,25 @@
+COPY_EXISTING_REGEXP GLOB ~^.+\.sto$~ ~override~
+  READ_LONG 0x34 "sale_offset"
+  READ_LONG 0x38 "sale_num"
+  FOR (index = 0 ; index < sale_num ; index = index + 1) BEGIN
+    READ_ASCII ("%sale_offset%" +        ("%index%" * 0x1c)) "item"
+    PATCH_IF ("%item%" STRING_COMPARE_REGEXP "^_?\(BOLT\|DART\|AROW\|BULL\)01$" = 0) BEGIN // bolt01, dart01, arow01, bull01
+      WRITE_SHORT ("%sale_offset%" + 0x0a + ("%index%" * 0x1c)) 120
+    END ELSE
+    PATCH_IF ("%item%" STRING_COMPARE_REGEXP "^_?\(DAGG05\|AX1H04\|T-HAMM03\)$" = 0) BEGIN // dagg05, ax1h04
+      WRITE_SHORT ("%sale_offset%" + 0x0a + ("%index%" * 0x1c)) 120
+    END
+  END
+  BUT_ONLY_IF_IT_CHANGES
+
+ACTION_FOR_EACH file IN ax1h04 dagg05 ~t-hamm03~ BEGIN
+	ACTION_IF FILE_EXISTS_IN_GAME ~%file%.itm~ BEGIN
+		COPY_EXISTING ~%file%.itm~ ~override~
+			PATCH_IF BUFFER_LENGTH > 0x71 BEGIN
+				WRITE_LONG 0x34 0 // price
+				WRITE_LONG 0x4c 0 // weight
+				WRITE_SHORT 0x38 999 // stack
+			END
+		BUT_ONLY
+	END
+END

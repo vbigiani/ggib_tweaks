@@ -1,0 +1,31 @@
+IF
+  Global("SQUAREMOD","GLOBAL",3)
+  Global("TRIANGLEMOD","GLOBAL",0)
+  InParty("NALIA")
+  !Dead("NALIA")
+  InMyArea("NALIA")
+  InParty("IMOEN2")
+  !Dead("IMOEN2")
+  InMyArea("IMOEN2")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("TRIANGLEMODTIMER","GLOBAL",TWO_DAYS)
+    SetGlobal("TRIANGLEMOD","GLOBAL",1)
+END
+
+IF
+  GlobalLT("TRIANGLEMOD","GLOBAL",3)
+  OR(2)
+    Global("TRIANGLEMOD","GLOBAL",2)
+    GlobalTimerExpired("TRIANGLEMODTIMER","GLOBAL")
+  InParty("NALIA")
+  !Dead("NALIA")
+  InMyArea("NALIA")
+  InParty("IMOEN2")
+  !Dead("IMOEN2")
+  InMyArea("IMOEN2")
+THEN
+  RESPONSE #100
+    SetGlobal("TRIANGLEMOD","GLOBAL",3)
+    Interact(Myself)
+END

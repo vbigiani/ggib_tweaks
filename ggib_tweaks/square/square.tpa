@@ -1,0 +1,5 @@
+AT_NOW ~VIEW ggib_tweaks/square/readme.txt~
+COMPILE ~ggib_tweaks/square/squaremod.d~
+EXTEND_TOP ~jaheira.bcs~ ~ggib_tweaks/square/jaheira.baf~
+EXTEND_TOP ~anomen.bcs~ ~ggib_tweaks/square/anomen.baf~
+EXTEND_TOP ~imoen2.bcs~ ~ggib_tweaks/square/imoen.baf~

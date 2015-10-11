@@ -1,0 +1,4 @@
+EXTEND_TOP ~baldur.bcs~ ~ggib_tweaks/real_anvil/real_anvil.baf~
+ACTION_IF FILE_EXISTS_IN_GAME ~baldur25.bcs~ THEN BEGIN
+  EXTEND_TOP ~baldur25.bcs~ ~ggib_tweaks/real_anvil/real_anvil.baf~
+END

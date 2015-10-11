@@ -1,0 +1,70 @@
+AT_NOW ~VIEW ggib_tweaks/hiphop/readme.txt~
+
+COPY_EXISTING ~chevil09.cre~ ~override~
+~cujon.cre~ ~override~
+~cujon2.cre~ ~override~
+~cujon3.cre~ ~override~
+~cujon4.cre~ ~override~
+~dpjon01.cre~ ~override~
+~dpjon02.cre~ ~override~
+~dream2.cre~ ~override~
+~driren.cre~ ~override~
+~drjon.cre~ ~override~
+~helljon.cre~ ~override~
+~helljon2.cre~ ~override~
+~jon1.cre~ ~override~
+~ppireni2.cre~ ~override~
+~sujon.cre~ ~override~
+~sujon2.cre~ ~override~
+SAY NAME1 ~Ice Cube~
+SAY NAME2 ~Ice Cube~
+
+COPY_EXISTING ~bodhi.cre~ ~override~
+~bodhi2.cre~ ~override~
+~bodhiamb.cre~ ~override~
+~c6bodhi.cre~ ~override~
+~chevil08.cre~ ~override~
+~cubodhi.cre~ ~override~
+~drbod.cre~ ~override~
+~ppbodhi3.cre~ ~override~
+~ppbodhi4.cre~ ~override~
+SAY NAME1 ~Dr. Dre~
+SAY NAME2 ~Dr. Dre~
+
+COPY_EXISTING ~cutmelis.cre~ ~override~
+~finmel01.cre~ ~override~
+~mel01.cre~ ~override~
+~meliss01.cre~ ~override~
+SAY NAME1 ~Eazy-E~
+SAY NAME2 ~Eazy-E~
+
+COPY_EXISTING ~balth.cre~ ~override~
+~sendai.cre~ ~override~
+~sendai2.cre~ ~override~
+~sendai3.cre~ ~override~
+~sendai4.cre~ ~override~
+~sendai5.cre~ ~override~
+~sendai6.cre~ ~override~
+~sendai7.cre~ ~override~
+~sendai8.cre~ ~override~
+~illasera.cre~ ~override~
+~yaga01.cre~ ~override~
+~yagaspir.cre~ ~override~
+~abazigal.cre~ ~override~
+~dragblue.cre~ ~override~
+~cutbalth.cre~ ~override~
+SAY NAME1 ~MC Ren~
+
+COPY_EXISTING_REGEXP GLOB ~^xbow[0-9]*\.itm~ ~override~
+SAY NAME1 ~Gat~
+SAY NAME2 ~Gat~
+
+COPY_EXISTING_REGEXP GLOB ~^bolt[0-9]*\.itm~ ~override~
+SAY NAME1 ~Hollow Point~
+SAY NAME2 ~Hollow Point~
+
+COPY_EXISTING ~thumb.cre~ ~override~
+SAY NAME1 ~50 Cent~
+SAY NAME2 ~50 Cent~
+
+COMPILE ~ggib_tweaks/hiphop/head1.d~

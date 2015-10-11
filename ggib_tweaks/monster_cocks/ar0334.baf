@@ -1,0 +1,43 @@
+IF
+  Global("ggib_ItemUp","ar0334",6)
+  Global("ForgeStuff","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("ForgeStuff","GLOBAL",0)
+    SetGlobal("ggib_Craft","ar0334",1)
+    GiveItemCreate("ggib06",Player1,50,50,50)
+    ActionOverride("wsmith01",StartDialogueNoSet([PC]))
+END
+
+IF
+  Global("ggib_ItemUp","ar0334",7)
+  Global("ForgeStuff","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("ForgeStuff","GLOBAL",0)
+    SetGlobal("ggib_Craft","ar0334",1)
+    GiveItemCreate("ggib07",Player1,50,50,50)
+    ActionOverride("wsmith01",StartDialogueNoSet([PC]))
+END
+
+IF
+  Global("ggib_ItemUp","ar0334",8)
+  Global("ForgeStuff","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("ForgeStuff","GLOBAL",0)
+    SetGlobal("ggib_Craft","ar0334",1)
+    GiveItemCreate("ggib08",Player1,50,50,50)
+    ActionOverride("wsmith01",StartDialogueNoSet([PC]))
+END
+
+IF
+  Global("ggib_ItemUp","ar0334",9)
+  Global("ForgeStuff","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("ForgeStuff","GLOBAL",0)
+    SetGlobal("ggib_Craft","ar0334",1)
+    GiveItemCreate("ggib09",Player1,1,3,1)
+    ActionOverride("wsmith01",StartDialogueNoSet([PC]))
+END

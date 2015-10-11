@@ -1,0 +1,178 @@
+COMPILE ~ggib_tweaks/monster_cocks/ggib06.d~
+COMPILE ~ggib_tweaks/monster_cocks/ggib07.d~
+COMPILE ~ggib_tweaks/monster_cocks/ggib08.d~
+COMPILE ~ggib_tweaks/monster_cocks/ggib09.d~
+
+EXTEND_BOTTOM ~ar0334.bcs~ ~ggib_tweaks/monster_cocks/ar0334.baf~
+
+DEFINE_PATCH_MACRO ~copy_header~ BEGIN
+  INNER_PATCH_FILE ~%target%.itm~ BEGIN
+    READ_STRREF NAME2 other
+    READ_LONG  0x64 head_off
+    READ_SHORT 0x68 head_cnt
+    READ_LONG  0x6a eff_off
+    READ_LONG  0x6e eff_cnt
+    PATCH_IF head_cnt != 1 || eff_cnt != 0 THEN BEGIN
+      PATCH_FAIL ~%target%.itm malformed~
+    END
+    READ_ASCII head_off header (0x38)
+    READ_SHORT head_off + 0x1e n_eff_cnt
+    READ_ASCII eff_off effects (n_eff_cnt * 0x30)
+  END
+  
+  READ_LONG  0x64 head_off
+  READ_SHORT 0x68 head_cnt
+  WRITE_SHORT 0x68 THIS + 1
+  READ_LONG  0x6a eff_off
+  READ_SHORT 0x6e eff_cnt
+  READ_SHORT 0x70 eff_idx
+  INSERT_BYTES head_off + 0x38 * head_cnt 0x38
+  WRITE_LONG 0x6a (THIS <= head_off ? eff_off : 0x38 + eff_off)
+  READ_LONG  0x6a eff_off
+  WRITE_ASCIIE head_off + 0x38 * head_cnt ~%header%~ (0x38)
+  eff_idx = eff_cnt + eff_idx
+  FOR (i = 0; i < head_cnt; ++i) BEGIN
+    b = head_off + 0x38 * i
+    n_eff_idx = (SHORT_AT (0x1e + b)) + (SHORT_AT (0x20 + b))
+    eff_idx = eff_idx < n_eff_idx ? n_eff_idx : eff_idx
+  END
+  WRITE_SHORT head_off + 0x38 * head_cnt + 0x20 eff_idx
+  INSERT_BYTES eff_off + eff_idx * 0x30 (n_eff_cnt * 0x30)
+  WRITE_ASCIIE eff_off + eff_idx * 0x30 ~%effects%~ (n_eff_cnt * 0x30)
+  
+  READ_STRREF IDENTIFIED_DESC desc
+  SAY_EVALUATED IDENTIFIED_DESC ~%desc%
+
+Can also apply the effect of %other%~
+END
+
+COPY_EXISTING ~wand05.itm~ ~override/ggib06.itm~
+  SAY NAME2 ~Monster Cock of Cum Splatter~
+  SPRINT target wand13
+  LPM ~copy_header~
+  // wand13
+
+COPY_EXISTING ~wand06.itm~ ~override/ggib07.itm~
+  SAY NAME2 ~Monster Cock of Precise Penetration~
+  SPRINT target wand11
+  LPM ~copy_header~
+  SPRINT target wand07
+  LPM ~copy_header~
+  // wand11, wand07
+
+COPY_EXISTING ~wand02.itm~ ~override/ggib08.itm~
+  SAY NAME2 ~Monster Cock of Scaring~
+  SPRINT target wand04
+  LPM ~copy_header~
+  SPRINT target wand08
+  LPM ~copy_header~
+  // wand04, wand08
+
+COPY_EXISTING ~staf11.itm~ ~override/ggib09.itm~
+  WRITE_LONG 0x18 (THIS & ` BIT1)
+  WRITE_SHORT 0x1c 17
+  WRITE_ASCII 0x22 ~CL~ #2
+  WRITE_BYTE  0x31 (THIS = 102 ? 115 : THIS)
+  SAY NAME2 ~Monster man-club of the Magi~
+  
+
+OUTER_INNER_PATCH ~1~ BEGIN
+  WRITE_BYTE 0 0x09
+  READ_ASCII 0 tab (1)  // 0x09, tab
+  WRITE_BYTE 0 0x0d
+  READ_ASCII 0 mnl (1)  // 0x0d, Mac
+END
+
+DEFINE_PATCH_FUNCTION ~TRA2STR~ // given tra reference, returns string
+  STR_VAR tra = ~~ // e.g. ~@123~
+  RET str
+BEGIN
+  PATCH_IF ((~%tra%~ STRING_MATCHES_REGEXP ~@-?[0-9]+~) == 0) BEGIN
+    INNER_ACTION BEGIN
+      <<<<<<<< .../inlined/mi_tra2str.tph
+        OUTER_SPRINT str %tra%
+      >>>>>>>>
+      COPY - ~.../inlined/mi_tra2str.tph~ ~.../inlined/mi_tra2str.tph~
+        EVALUATE_BUFFER
+      REINCLUDE ~.../inlined/mi_tra2str.tph~
+    END
+  END
+  ELSE BEGIN
+    TEXT_SPRINT str ~%tra%~
+  END
+END
+
+DEFINE_ACTION_FUNCTION ~ADD_ITEM_TOOLTIPS~
+  STR_VAR item = ~~     // e.g. ~sw1h01~
+          tooltips = ~~ // e.g. ~@123 @124 6620~, takes combination of tra refs and strrefs for as many abilities as you need to specify
+BEGIN
+  ACTION_IF (STRING_LENGTH ~%item%~ > 0) BEGIN
+    // generate our row to add to tooltip.2da
+    OUTER_TEXT_SPRINT row ~%item%~
+    OUTER_PATCH ~ %tooltips%~ BEGIN // extract our tooltips from the tooltips string
+      REPLACE_EVALUATE ~[ %tab%]+\(@?-?[0-9]+\)~ BEGIN
+        PATCH_IF ((~%MATCH1%~ STRING_MATCHES_REGEXP ~@-?[0-9]+~) == 0) BEGIN // tra ref
+          // look up string for given tra reference
+          LAUNCH_PATCH_FUNCTION ~TRA2STR~ STR_VAR tra = EVALUATE_BUFFER ~%MATCH1%~ RET str = str END
+          // use REPLACE to get a strref for our new string
+          INNER_PATCH ~0~ BEGIN
+            REPLACE ~0~ ~%str%~
+            READ_2DA_ENTRY 0 0 1 strref
+          END
+          TEXT_SPRINT row ~%row% %strref%~ // add to our row
+        END
+        ELSE BEGIN // strref
+          TEXT_SPRINT row ~%row% %MATCH1%~ // add to our row
+        END
+      END ~~
+    END
+    
+    COPY_EXISTING ~tooltip.2da~ ~override~
+      REPLACE_TEXTUALLY ~^[ %tab%]*%item%[ %tab%].*~ ~~ // remove previous row for this item if it exists
+      COUNT_2DA_ROWS 1 num_rows
+      INSERT_2DA_ROW num_rows 1 ~%row%~ // insert our row at the end
+      
+      // ensure all rows have -1 entries in unused columns
+      REPLACE_TEXTUALLY ~^[ %tab%]*0?[ %tab%]*1[ %tab%]+2[ %tab%]+3.*~ ~~ // remove column labels for now
+      COUNT_2DA_COLS num_cols
+      TEXT_SPRINT entries ~~
+      TEXT_SPRINT col_labels ~~
+      FOR (i = 1; i < (num_cols - 1); i += 1) BEGIN // for each number of columns less than there should be
+        TEXT_SPRINT entries ~%entries%[ %tab%]+[0-9-]+~ // generate regexp to detect this many columns
+        TEXT_SPRINT empties ~~
+        FOR (j = (num_cols - 1); j > i; j -= 1) BEGIN // generate -1 entries for the number of missing columns
+          TEXT_SPRINT empties ~%empties% -1~
+        END
+        REPLACE_TEXTUALLY ~^\([ %tab%]*[^ %tab%]+%entries%\)[ %tab%]*[%mnl%]?$~ ~\1%empties%~ // add -1 entries to all rows with this many missing columns
+        TEXT_SPRINT col_labels ~%col_labels% %i%~ // generate fresh column labels
+      END
+      INSERT_2DA_ROW 2 1 ~%col_labels% %i%~ // re-add column labels, with last entry where i == (num_cols - 1)
+      PRETTY_PRINT_2DA
+      REPLACE_TEXTUALLY ~2DA +~ ~2DA ~
+    
+  END
+END
+
+LAF ~ADD_ITEM_TOOLTIPS~
+  STR_VAR
+    item = ~ggib06~
+    tooltips = ~15531 13047 17708~
+END
+
+LAF ~ADD_ITEM_TOOLTIPS~
+  STR_VAR
+    item = ~ggib07~
+    tooltips = ~7269 7273 7270~
+END
+
+LAF ~ADD_ITEM_TOOLTIPS~
+  STR_VAR
+    item = ~ggib08~
+    tooltips = ~6659 6690 6692~
+END
+
+LAF ~ADD_ITEM_TOOLTIPS~
+  STR_VAR
+    item = ~ggib09~
+    tooltips = ~8113 3895 26304~
+END

@@ -1,0 +1,83 @@
+BACKUP ~ggib_tweaks/backup~
+AUTHOR ~http://bit.ly/gpiAXA / ggib_eht@gmail.com~
+
+README ~ggib_tweaks/readme.txt~
+VERSION ~Ggib Eht Tweak Pack v2~
+
+
+BEGIN ~Orgies and masturbation~
+REQUIRE_PREDICATE GAME_IS ~SoA ToB~ && !GAME_IS ~BGT~ ~Anal beads not meant for oral use~
+INCLUDE ~ggib_tweaks/orgies/orgies.tpa~
+
+
+BEGIN ~Circle Mod by 0haywoodjablowmi@smutmongers.com (Requires Kelsey 1.0.0 or greater)~
+GROUP ~Suck the Cock or Repeat the Year~
+REQUIRE_FILE ~override/bj#klsy.dlg~ ~You don't have Kelsey-SOA installed, so this won't work.~
+COMPILE ~ggib_tweaks/circle/kelseycircle.d~
+
+
+BEGIN ~Square/Triangle/Octagon by ggib eht~
+GROUP ~Suck the Cock or Repeat the Year~
+INCLUDE ~ggib_tweaks/square/square.tpa~
+
+
+BEGIN ~SlidMang0's Hip Hop Mod~
+GROUP ~Suck the Cock or Repeat the Year~
+INCLUDE ~ggib_tweaks/hiphop/hiphop.tpa~
+
+BEGIN ~Natlia Roamnce Mod!!!!!11111 by TFJcrompton@teamflapjacks.net~
+GROUP ~Suck the Cock or Repeat the Year~
+INCLUDE ~ggib_tweaks/natlia/natlia.tpa~
+
+
+BEGIN ~SlidMang0's previously unreleased flirts~
+GROUP ~Suck the Cock or Repeat the Year~
+COMPILE ~ggib_tweaks/mang0flirts/mang0flirts.d~
+
+
+BEGIN ~Real Anvil by ggib eth~
+GROUP ~Suck the Cock or Repeat the Year~
+INCLUDE ~ggib_tweaks/real_anvil/real_anvil.tpa~
+
+
+BEGIN ~Improved Anvil lite by Sikret and Anonymouse~
+GROUP ~Suck the Cock or Repeat the Year~
+PRINT ~
+
+PARTYVAN DISPATCHED.
+
+~
+
+
+BEGIN ~Improved Anvil v6 by Sikret~
+GROUP ~Suck the Cock or Repeat the Year~
+PRINT ~
+
+PARTYVAN DISPATCHED.
+
+~
+
+
+BEGIN ~Get Back Your Coins~
+INCLUDE ~ggib_tweaks/coinback/coinback.tpa~
+
+
+BEGIN ~Monster Cocks~
+INCLUDE ~ggib_tweaks/monster_cocks/monster_cocks.tpa~
+
+
+BEGIN ~Threesome Are Fun If They Are Easy~
+INCLUDE ~ggib_tweaks/threesome/threesome.tpa~
+
+
+BEGIN ~Cheap Bukkakke~
+INCLUDE ~ggib_tweaks/bukkakke/bukkakke.tpa~
+
+
+BEGIN ~Learn How to Use Your Cock~
+INCLUDE ~ggib_tweaks/cock_use/cock_use.tpa~
+
+
+BEGIN ~Steely erections~
+REQUIRE_PREDICATE GAME_IS ~BGT~ ~I'm too lazy to make this mod rainbow friendly~
+INCLUDE ~ggib_tweaks/steely_erections/steely_erections.tpa~

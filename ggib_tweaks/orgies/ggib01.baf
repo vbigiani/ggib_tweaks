@@ -1,0 +1,19 @@
+IF
+  Global("ggib01","GLOBAL",0)
+THEN
+  RESPONSE #100
+    ActionOverride("Picture1",CreateItem("ggib01",0,0,0))
+    ActionOverride("Picture1",CreateItem("bag04",0,0,0))
+    ActionOverride("Picture1",CreateItem("misc47",0,0,0))
+    SetGlobal("ggib01","GLOBAL",69)
+END
+
+IF
+  PartyHasItem("ggib01")
+  Global("ggib01","GLOBAL",69)
+THEN
+  RESPONSE #100
+    SetGlobal("ggib01","GLOBAL",71)
+    ActionOverride(Player1,DestroyItem("bigg01"))
+    ActionOverride(Player1,StartDialogOverride("ggib01",Player1))
+END

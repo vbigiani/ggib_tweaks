@@ -1,0 +1,19 @@
+IF
+  OR(2)
+    CheckStatGT(Myself,1,FATIGUE)
+    Global("SQUAREMOD","GLOBAL",1)
+  GlobalLT("SQUAREMOD","GLOBAL",2)
+  InParty("NALIA")
+  !Dead("NALIA")
+  InMyArea("NALIA")
+  InParty("IMOEN2")
+  !Dead("IMOEN2")
+  InMyArea("IMOEN2")
+  InParty("MAZZY")
+  !Dead("MAZZY")
+  InMyArea("MAZZY")
+THEN
+  RESPONSE #100
+    SetGlobal("SQUAREMOD","GLOBAL",2)
+    Interact(Myself)
+END

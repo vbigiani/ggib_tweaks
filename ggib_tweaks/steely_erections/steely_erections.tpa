@@ -1,0 +1,49 @@
+ACTION_DEFINE_ASSOCIATIVE_ARRAY items BEGIN
+	AX1H01 => BGMISC56 
+	BLUN02 => BGMISC56 
+	BLUN04 => BGMISC56 
+	BLUN06 => BGMISC56 
+	DAGG01 => BGMISC56 
+	DAGG06 => BGMISC56 
+	DAGG07 => BGMISC56 
+	HALB01 => BGMISC56 
+	SPER01 => BGMISC56 
+	SW1H01 => BGMISC56 
+	SW1H04 => BGMISC56 
+	SW1H07 => BGMISC56 
+	SW1H12 => BGMISC56 
+	SW1H17 => BGMISC56 
+	SW1H20 => BGMISC56 
+	SW1H43 => BGMISC56 
+	SW1H46 => BGMISC56 
+	SW1H48 => BGMISC56 
+	SW2H01 => BGMISC56 
+	shld01 => MISC57   
+	shld03 => MISC57   
+	shld05 => MISC57   
+	shld08 => MISC57   
+	shld09 => MISC57   
+	shld10 => MISC57   
+	shld11 => MISC57   
+	shld12 => MISC57   
+	shld13 => MISC57   
+	shld14 => MISC57   
+	shld15 => MISC57   
+	shld16 => MISC57   
+	shld18 => MISC57   
+	shld99 => MISC57   
+	chan01 => MISC58   
+	chan04 => MISC58   
+	PLAT01 => MISC58   
+	PLAT04 => MISC58   
+	PLAT07 => MISC58   
+END
+
+COPY_EXISTING ~dplayer2.bcs~ ~override/dplayer2.bcs~
+              ~dplayer3.bcs~ ~override/dplayer3.bcs~
+  DECOMPILE_BCS_TO_BAF
+	PATCH_PHP_EACH items AS steel => impotent BEGIN
+		REPLACE_TEXTUALLY ~DisplayStringHead(Myself,[0-9]*).*[%WNL%%TAB% ]*TakeItemReplace(\"%impotent%\",\"%steel%\",Myself)~ ~~
+		REPLACE_TEXTUALLY ~DisplayStringHead(Myself,[0-9]*).*[%WNL%%TAB% ]*\(SetGlobal("%steel%","LOCALS",0)\)[%WNL%%TAB% ]*TakeItemReplace(\"%impotent%\",\"%steel%\",Myself)~ ~\1~
+	END
+  COMPILE_BAF_TO_BCS
